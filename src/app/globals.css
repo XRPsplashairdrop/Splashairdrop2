@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+:root {
+  --background: #06080f;
+  --foreground: #f0f4ff;
+  --muted: #8b95b0;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --accent: #00c2ff;
+  --accent-secondary: #7b61ff;
+  --accent-gold: #f5a623;
+  --glow: rgba(0, 194, 255, 0.15);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-gold: var(--accent-gold);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast-enter {
+  animation: toast-in 0.3s ease-out forwards;
+}
+
+@keyframes check-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes check-draw {
+  0% {
+    stroke-dashoffset: 30;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes coin-orbit-float {
+  0%,
+  100% {
+    transform: rotate(var(--coin-angle)) translateX(88px) rotate(calc(-1 * var(--coin-angle))) translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: rotate(var(--coin-angle)) translateX(96px) rotate(calc(-1 * var(--coin-angle))) translateY(-10px);
+    opacity: 1;
+  }
+}
+
+.success-check {
+  animation: check-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.success-check-path {
+  stroke-dasharray: 30;
+  animation: check-draw 0.5s ease-out 0.3s forwards;
+}
+
+.coin-orbit {
+  animation: coin-orbit-float 3s ease-in-out infinite;
+}
+
+.glass {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #00c2ff 0%, #7b61ff 50%, #f5a623 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mesh-bg {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(0, 194, 255, 0.18), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(123, 97, 255, 0.12), transparent),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(245, 166, 35, 0.08), transparent);
+}
